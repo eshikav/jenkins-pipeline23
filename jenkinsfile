@@ -18,5 +18,12 @@ pipeline {
                  sh 'echo hi'
                 }
         }	
+       stage('centos test'){
+           agent {label 'jenkinsagent'}
+            steps{
+               def centos = docker.image('centos:latest')
+               centos.pull()
+             }    
+           }
    }
 }
