@@ -21,8 +21,7 @@ pipeline {
        stage('centos test') {
            agent {label 'dcoker-agent'}
            steps {
-               app = docker.image('centos:latest')
-               app.pull()
+              sh 'uname -a'
             }
      }
    }
