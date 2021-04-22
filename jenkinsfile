@@ -18,7 +18,7 @@ pipeline {
                  sh 'echo hi'
                 }
         }	
-       stage('centos test'){
+       stage('centos test') {
          node('linux') {
          def maven = docker.image('maven:latest')
          maven.pull() // make sure we have the latest available from Docker Hub
