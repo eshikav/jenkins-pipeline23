@@ -13,7 +13,7 @@ pipeline {
             }
         }
         stage('Creating the Docer Image') {
-           agent {docker {image 'centos:latest'} }
+           agent {label 'jenkins-agent'} }
             steps {
                  sh 'echo hi'
                 }
