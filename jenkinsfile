@@ -19,13 +19,11 @@ pipeline {
                 }
         }	
        stage('centos test') {
-         node('linux') {
-         def maven = docker.image('maven:latest')
-         maven.pull() // make sure we have the latest available from Docker Hub
-         maven.inside {
-         // …as above
-         }
-       }
+           agent {label 'dcoker-agent'}
+           steps{
+               app = docker.image('centos:latest')
+               app.pull()
+            }
      }
    }
 }
