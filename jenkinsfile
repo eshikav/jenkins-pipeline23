@@ -18,7 +18,7 @@ pipeline {
            }
            agent {label 'dcoker-agent'}
            steps {
-             copyArtifacts filter: 'test.zip', fingerprintArtifacts: true, projectName: '${JOB_NAME}', selector: '${BUILD_NUMBER}'
+             copyArtifacts filter: 'test.zip', fingerprintArtifacts: true, projectName: '${JOB_NAME}', selector: specific('${BUILD_NUMBER}')
              unzip zipFile: 'test.zip', dir: './webapp'
              sh 'ls'
              sh 'docker images'
