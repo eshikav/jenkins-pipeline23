@@ -11,7 +11,11 @@ pipeline {
                 zip zipFile: 'test.zip', archive: false, dir: 'webapp', overwrite: true
                 archiveArtifacts artifacts: 'test.zip', fingerprint: true
             }
+           post {
+              always {                                                                                                                                                                      sh 'rm -rf test.zip'
+              }
         }
+
        stage('Build docker image') {
            environment {
                 DOCKER_HOST = "tcp://172.31.35.134:2375"
@@ -25,6 +29,7 @@ pipeline {
              sh 'docker build -t ${JOB_NAME}-tomcat:${BUILD_NUMBER} .'
            }
      }
+
      stage('Pushing the docker image') {
             environment {
                 DOCKER_HOST = "tcp://172.31.35.134:2375"
@@ -35,6 +40,10 @@ pipeline {
              sh 'docker tag ${JOB_NAME}-tomcat:${BUILD_NUMBER} eshikav/${JOB_NAME}-tomcat:${BUILD_NUMBER}'
              sh 'docker push eshikav/${JOB_NAME}-tomcat:${BUILD_NUMBER}'
            }
+           post {
+              always {
+                sh 'docker image rm -f eshikav/${JOB_NAME}-tomcat:${BUILD_NUMBER}'
+              }
       }
    }
 }
