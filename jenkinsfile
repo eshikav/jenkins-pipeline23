@@ -26,6 +26,9 @@ pipeline {
            }
      }
      stage('Pushing the docker image') {
+            environment {
+                DOCKER_HOST = "tcp://172.31.35.134:2375"
+           }
             agent {label 'dcoker-agent'}
             steps {
              sh 'docker login -u eshikav -p Shiv@1991'
