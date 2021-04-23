@@ -1,7 +1,7 @@
 pipeline {
     agent none
     stages {
-        stage('Build') {
+       stage('Build') {
             agent {label 'jenkinsagent'}   
             steps {
                 checkout poll: false, scm: [$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'ab4d2a98-78f3-4f7a-898c-354e4efda790', url: 'https://github.com/dvmaniteja/hello_world_sample.git']]]
@@ -29,9 +29,9 @@ pipeline {
              sh 'docker images'
              sh 'docker build -t ${JOB_NAME}-tomcat:${BUILD_NUMBER} .'
            }
-     }
+       }
 
-     stage('Pushing the docker image') {
+       stage('Pushing the docker image') {
             environment {
                 DOCKER_HOST = "tcp://172.31.35.134:2375"
            }
@@ -45,7 +45,7 @@ pipeline {
               always {
                 sh 'docker image rm -f eshikav/${JOB_NAME}-tomcat:${BUILD_NUMBER}'
               }
-      }
-   }
- }
+           }
+       }
+  }
 }
