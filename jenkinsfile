@@ -28,7 +28,7 @@ pipeline {
      stage('Pushing the docker image') {
             agent {label 'dcoker-agent'}
             steps {
-             sh 'docker login -u eshikav -p redhat123@'
+             sh 'docker login -u eshikav -p Shiv@1991'
              sh 'docker tag ${JOB_NAME}-tomcat:${BUILD_NUMBER} eshikav/${JOB_NAME}-tomcat:${BUILD_NUMBER}'
              sh 'docker push eshikav/${JOB_NAME}-tomcat:${BUILD_NUMBER}'
            }
