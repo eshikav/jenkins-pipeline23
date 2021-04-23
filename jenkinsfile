@@ -5,13 +5,10 @@ pipeline {
             agent {label 'jenkinsagent'}   
             steps {
                 checkout poll: false, scm: [$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'ab4d2a98-78f3-4f7a-898c-354e4efda790', url: 'https://github.com/dvmaniteja/hello_world_sample.git']]]
-                withMaven (
-                   maven: 'M2_HOME'
-                 ) {
+                withMaven (maven: 'M2_HOME') {
                 sh "mvn -Dmaven.test.failure.ignore=true clean package"
                 }
                 zip zipFile: 'test.zip', archive: false, dir: 'webapp'
-                archiveArtifacts artifacts: 'test.zip', fingerprint: true
             }
         }
        stage('centos test') {
@@ -20,7 +17,7 @@ pipeline {
            }
            agent {label 'dcoker-agent'}
            steps {
-             copyArtifacts filter: 'test.zip', fingerprintArtifacts: true, projectName: 'eshikav', selector: specific('${BUILD_NUMBER}')
+             #copyArtifacts filter: 'test.zip', fingerprintArtifacts: true, projectName: 'eshikav', selector: specific('${BUILD_NUMBER}')
              unzip zipFile: 'test.zip', dir: './webapp'
              sh 'ls'
              sh 'docker images'
