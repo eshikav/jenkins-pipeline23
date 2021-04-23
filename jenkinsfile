@@ -17,7 +17,6 @@ pipeline {
            }
            agent {label 'dcoker-agent'}
            steps {
-             #copyArtifacts filter: 'test.zip', fingerprintArtifacts: true, projectName: 'eshikav', selector: specific('${BUILD_NUMBER}')
              unzip zipFile: 'test.zip', dir: './webapp'
              sh 'ls'
              sh 'docker images'
