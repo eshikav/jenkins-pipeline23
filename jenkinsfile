@@ -19,6 +19,7 @@ pipeline {
            agent {label 'dcoker-agent'}
            steps {
              sh 'docker images'
+             sh 'docker build -t firstbuild'
            }
      }
    }
