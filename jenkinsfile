@@ -12,17 +12,10 @@ pipeline {
                 }
             }
         }
-        stage('Creating the Docer Image') {
-           agent {label 'jenkins-agent'} 
-            steps {
-                 sh 'echo hi'
-                }
-        }	
        stage('centos test') {
            agent {label 'dcoker-agent'}
-           steps {
-              sh 'uname -a'
-            }
+           def app = docker.image('maven:latest')
+           app.pull()
      }
    }
 }
