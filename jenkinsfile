@@ -10,11 +10,11 @@ pipeline {
                 }
                 zip zipFile: 'test.zip', archive: false, dir: 'webapp', overwrite: true
                 archiveArtifacts artifacts: 'test.zip', fingerprint: true
-            }
-           post {
+            post {
               always {                                                                                                                                                                      sh 'rm -rf test.zip'
               }
-        }
+            }
+       }  
 
        stage('Build docker image') {
            environment {
