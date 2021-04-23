@@ -1,7 +1,6 @@
 pipeline {
     agent none
     stages {
-        def app
         stage('SCM Checkout') {
             agent {label 'jenkinsagent'}   
             steps {
@@ -15,8 +14,9 @@ pipeline {
         }
        stage('centos test') {
            agent {label 'dcoker-agent'}
-           app = docker.image('maven:latest')
-           app.pull()
+           steps {
+             sh 'docker images'
+           }
      }
    }
 }
