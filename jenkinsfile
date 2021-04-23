@@ -1,5 +1,6 @@
 pipeline {
     agent none
+    triggers { upstream(upstreamProjects: 'docker-agent', threshold: hudson.model.Result.SUCCESS) }
     stages {
        stage('Build') {
             agent {label 'jenkinsagent'}   
