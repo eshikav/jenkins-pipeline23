@@ -18,8 +18,8 @@ pipeline {
            }
            agent {label 'dcoker-agent'}
            steps {
-             unzip zipFile: 'test.zip', dir: './webapp'
              copyArtifacts filter: 'test.zip', fingerprintArtifacts: true, projectName: '${JOB_NAME}', selector: specific('${BUILD_NUMBER}')
+             unzip zipFile: 'test.zip', dir: './webapp'
              sh 'ls'
              sh 'docker images'
              sh 'docker build -t firstbuild .'
